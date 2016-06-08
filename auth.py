@@ -3,7 +3,7 @@ import webapp2
 
 from google.appengine.api import users
 
-from models.auth import JedditUser
+from models.auth import User
 
 class LoginHandler(webapp2.RequestHandler):
 
@@ -19,10 +19,10 @@ class LoginHandler(webapp2.RequestHandler):
     user = users.get_current_user()
     if user:
       # Use a user entity in our datastore so we can get their nickname etc. for other users to see
-      # Also to tie content created by them on Jeddit back to their user account
-      existing_user = JedditUser.get_or_create_by_user(user)
+      # Also to tie content created by them on oneth back to their user account
+      existing_user = User.get_or_create_by_user(user)
       logging.info("%s has logged in" % existing_user.user.email())
-      
+
       # The docs indicate that an existing user could change their email address or nickname, which could require
       # the user entity to be updated, so handle that case here
       if existing_user.user != user:
@@ -32,7 +32,7 @@ class LoginHandler(webapp2.RequestHandler):
 
       if self.request.get('final'):
         return self.redirect(self.request.get('final'), body="Thanks for logging in")
-        
+
       return self.redirect('/', body="Thanks for logging in")
     else:
       # You could display a login form here if you had alternative methods of logging in
@@ -45,7 +45,7 @@ def user_vars():
     user = users.get_current_user()
 
     if user:
-      template_values['user'] = JedditUser.get_or_create_by_user(user)
+      template_values['user'] = User.get_or_create_by_user(user)
     else:
       template_values['google_login_url'] = users.create_login_url('/login')
 

@@ -6,17 +6,17 @@ from google.appengine.api import users
 from models.content import Article
 from models.vote import Vote
 from models.vote import UPVOTE, DOWNVOTE
-from models.auth import JedditUser
+from models.auth import User
 
 class AddVoteHandler(webapp2.RequestHandler):
 
-  def post(self, article_id, vote_type): 
+  def post(self, article_id, vote_type):
     article = Article.get_by_id(int(article_id))
 
     user = users.get_current_user()
     if user:
-      user_key = JedditUser.key_from_user(user)
-    
+      user_key = User.key_from_user(user)
+
     # TODO Votes are now being created properly, Add update requests to a pull queue
     if vote_type == 'down':
       vote = Vote.create(article_key=article.key, user_key=user_key, value=DOWNVOTE)
@@ -31,4 +31,3 @@ class AddVoteHandler(webapp2.RequestHandler):
 
   def get(self, article_id, vote_type):
     return self.post(article_id, vote_type)
-

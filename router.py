@@ -15,4 +15,3 @@ APP = webapp2.WSGIApplication([
     (r'/article/(\d+)/comment', AddCommentHandler),
     (r'/vote/(\d+)/(\w+)', AddVoteHandler),
 ], debug=True)
-

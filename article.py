@@ -7,7 +7,7 @@ from google.appengine.api import memcache
 from google.appengine.api import users
 
 from models.content import Article, Comment
-from models.auth import JedditUser
+from models.auth import User
 
 # This just says to load templates from the same directory this file exists in
 jinja_environment = jinja2.Environment(
@@ -21,7 +21,7 @@ class AddArticleHandler(webapp2.RequestHandler):
     # Attach our user if the submitter is logged in, but we do allow anonymous posts
     user = users.get_current_user()
     if user:
-      article.submitter = JedditUser.key_from_user(user)
+      article.submitter = User.key_from_user(user)
     article_key = article.put()
 
     # Invalidate the article list in memcache, It will get rebuilt next time the front page is loaded
@@ -35,7 +35,7 @@ class AddCommentHandler(webapp2.RequestHandler):
   def post(self, article_id):
     article_id = int(article_id)
     google_user = users.get_current_user()
-    user = JedditUser.get_or_create_by_user(google_user)
+    user = User.get_or_create_by_user(google_user)
     article = Article.get_by_id(article_id)
     comment_content = self.request.POST['comment']
     if not comment_content or comment_content.strip() == '':
@@ -90,4 +90,3 @@ class ViewArticleHandler(webapp2.RequestHandler):
     template_values['comments'] = comment_list
     template = jinja_environment.get_template('article.html')
     self.response.out.write(template.render(template_values))
-

@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-class JedditUser(ndb.Model):
+class User(ndb.Model):
   user = ndb.UserProperty(required=True, indexed=False)
   vote = ndb.FloatProperty()
   joined = ndb.DateProperty(auto_now_add=True)
@@ -13,7 +13,7 @@ class JedditUser(ndb.Model):
   def key_from_user(cls, user):
     # Construct the key using the user_id that is assured to be constant as our identifier
     # This also serves as a good example of how to tie entities together without requiring a query
-    return ndb.Key('JedditUser', user.user_id())
+    return ndb.Key('User', user.user_id())
 
   @classmethod
   def create(cls, user):
