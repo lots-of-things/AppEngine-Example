@@ -16,8 +16,10 @@
    </a>
    {% if not user %}
     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
+   {% else %}
+    <span class="pull-right">{{user.nickname}}, your vote is worth {{user.vote}}.  <br /><a href="{{ google_logout_url }}"><button type="button" class="btn btn-primary pull-right">Logout</button></a></span>
    {% endif %}
-   <h3>{% block page_header %}Empty Page{% endblock %}</h3>
+    <h3>{% block page_header %}Empty Page{% endblock %}</h3>
 
    {% block content %}
     There is no content on this page! Whoops!

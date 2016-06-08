@@ -2,6 +2,7 @@ from google.appengine.ext import ndb
 
 class JedditUser(ndb.Model):
   user = ndb.UserProperty(required=True, indexed=False)
+  vote = ndb.FloatProperty()
   joined = ndb.DateProperty(auto_now_add=True)
   about = ndb.TextProperty()
 
@@ -26,7 +27,7 @@ class JedditUser(ndb.Model):
     if not existing_user:
       existing_user = cls.create(user)
       existing_user.put()
-    return existing_user    
+    return existing_user
 
   @property
   def nickname(self):
@@ -34,4 +35,3 @@ class JedditUser(ndb.Model):
       return self.local_nickname
     else:
       return self.user.nickname()
-
