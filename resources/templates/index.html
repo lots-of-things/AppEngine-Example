@@ -14,14 +14,14 @@
     <td class="text-center">
      <h2><a href="{{ article.url }}" class="article-link">{{ article.title|e }}</a></h2>
      <p class="article-link">{{ article.why|e }}</p>
-     <a href="/article/{{ article.id }}">Share in the conversation</a>
+     <div class="text-center">
+      <a href="/article/{{ article.id }}" class="btn btn-default btn-lg btn-huge" data-toggle="tooltip" data-placement="top" title="Make sure you really understand the article so you can share in the conversation with friends later.">take the quiz</a>
+    </div>
     </td>
    </tr>
    {% endfor %}
    </tbody>
   </table>
  </div>
- <div class="text-center">
-  <a href="/choose" class="btn btn-default btn-lg btn-huge" data-toggle="tooltip" data-placement="top" title="Make sure you really understand the article so you can share in the conversation with friends later.">take the quiz</a>
- </div>
+
 {% endblock %}
