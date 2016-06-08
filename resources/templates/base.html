@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>{% block title %}Welcome to Jeddit! The front page of this demo app!{% endblock %}</title>
+  <title>{% block title %}oneth{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/resources/static/theme.css" />
   <link href="/resources/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -10,15 +10,15 @@
  </head>
  <body>
   <div class="container" id="main-content">
-   <h1>Jeddit!</h1>
+   <h1>oneth</h1>
    <a href="/">
-    <img src="/logo.png" alt="Jeddit!" id="logo" height="70" width="80" />
+    <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
    </a>
-   <br />
-   <h3>{% block page_header %}Empty Page{% endblock %}</h3>
    {% if not user %}
-    <a href="{{ google_login_url }}">Login</a>
+    <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
    {% endif %}
+   <h3>{% block page_header %}Empty Page{% endblock %}</h3>
+
    {% block content %}
     There is no content on this page! Whoops!
    {% endblock %}
@@ -27,4 +27,3 @@
   <script src="/resources/static/bootstrap/js/bootstrap.min.js"></script>
  </body>
 </html>
-

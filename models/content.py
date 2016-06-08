@@ -5,7 +5,8 @@ from auth import JedditUser
 # Our basic user submitted content
 class Article(ndb.Model):
   title = ndb.StringProperty(required=True)
-  content = ndb.TextProperty(required=True)
+  url = ndb.TextProperty(required=True)
+  why = ndb.TextProperty(required=True)
   submitted = ndb.DateTimeProperty(auto_now_add=True)
   submitter = ndb.KeyProperty(kind=JedditUser)
   rating = ndb.FloatProperty(default=0.5)

@@ -16,7 +16,7 @@ jinja_environment = jinja2.Environment(
 class AddArticleHandler(webapp2.RequestHandler):
 
   def post(self):
-    article = Article(title=self.request.POST['article-title'], content=self.request.POST['article-content'])
+    article = Article(title=self.request.POST['article-title'], url=self.request.POST['article-url'], why=self.request.POST['article-why'])
 
     # Attach our user if the submitter is logged in, but we do allow anonymous posts
     user = users.get_current_user()
@@ -60,7 +60,8 @@ class ViewArticleHandler(webapp2.RequestHandler):
     article = Article.get_by_id(int(article_id))
     article_values = {
       'title': article.title,
-      'content': article.content,
+      'url': article.url,
+      'why': article.why,
       'submitted': article.submitted,
       'rating': article.rating,
       'id': article_id,
