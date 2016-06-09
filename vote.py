@@ -3,7 +3,7 @@ import webapp2
 from google.appengine.ext import ndb
 from google.appengine.api import users
 
-from models.content import Article
+from models.content import Article, Question
 from models.vote import Vote
 from models.vote import UPVOTE, DOWNVOTE
 from models.auth import User
@@ -28,6 +28,36 @@ class AddVoteHandler(webapp2.RequestHandler):
     ndb.put_multi([article, vote])
 
     return self.redirect('/', body="Thanks for your vote!")
+
+  def get(self, article_id, vote_type):
+    return self.post(article_id, vote_type)
+
+class AddAnswerHandler(webapp2.RequestHandler):
+
+  def post(self, question_id, ans_type):
+    question = Question.get_by_id(int(question_id))
+
+    user = users.get_current_user()
+    if user:
+      user_key = User.key_from_user(user)
+
+    question.tries = question.tries + 1
+    # TODO Votes are now being created properly, Add update requests to a pull queue
+    gotit = False
+    if ans_type == 'true':
+        if question.answer == True:
+            question.correct += question.correct + 1
+            gotit = True
+        else:
+            question.correct += question.correct - 1
+    else:
+        if question.answer == True:
+            question.correct += question.correct - 1
+        else:
+            question.correct += question.correct + 1
+            gotit = True
+
+    return self.redirect('/', body="Thanks for your answer!")
 
   def get(self, article_id, vote_type):
     return self.post(article_id, vote_type)

@@ -1,0 +1,13 @@
+ <div id="add-comment-container" class="panel panel-default panel-group">
+  <div class="panel panel-body">
+   <form method="POST" action="/article/{{ id }}/question" id="add-question" role="form">
+    <div class="form-group">
+     <label for="article-content">New Question</label>
+     <textarea class="form-control" placeholder="Your Question Goes Here (Make it good)" name="question"></textarea>
+     <input type="radio" name="answer" value="true" required> True<br>
+     <input type="radio" name="answer" value="false"> False<br>
+    </div>
+    <input type="submit" value="Add this Question" class="btn btn-default" />
+   </form>
+  </div>
+ </div>

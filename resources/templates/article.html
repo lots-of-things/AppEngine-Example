@@ -10,6 +10,12 @@
   <p class="article-content">{{ why|e }}</p>
   <a href="{{ url }}" class="article-link">View the article</a>
  </div>
+ {% if questions %}
+  {% include "questions.html" %}
+ {% endif %}
+ {% if user %}
+  {% include "add_question.html" %}
+ {% endif %}
  {% if user %}
   {% include "add_comment.html" %}
  {% endif %}

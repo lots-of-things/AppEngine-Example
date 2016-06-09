@@ -1,0 +1,18 @@
+{% if questions %}
+ <div class="panel panel-default" id="comments" style="padding: 1em;">
+  {% for question in questions %}
+   <div class="well" id="question-{{ question.id }}">
+    <span class="question-info">{{ question.user.nickname }} on {{ question.posted }}</span>
+    <p class="question-content">{{ question.content|e }}</p>
+
+    <form action="/ans/{{ question.id }}/true" method="get">
+      <button type="submit" value="Submit">True</button>
+    </form>
+    <form action="/ans/{{ question.id }}/false" method="get">
+      <button type="submit" value="Submit">False</button>
+    </form>
+
+   </div>
+  {% endfor %}
+ </div>
+{% endif %}
