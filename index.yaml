@@ -8,6 +8,12 @@ indexes:
   - name: submitted
     direction: desc
 
+- kind: Article
+  properties:
+  - name: mark
+  - name: rating
+    direction: desc
+
 - kind: Comment
   properties:
     - name: article
@@ -16,4 +22,4 @@ indexes:
 - kind: Question
   properties:
     - name: article
-    - name: posted
+    - name: rating
