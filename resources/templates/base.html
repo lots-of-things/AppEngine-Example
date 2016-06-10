@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>{% block title %}oneth{% endblock %}</title>
+  <title>{% block title %}oneth.makeloft.org{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/resources/static/theme.css" />
   <link href="/resources/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -14,10 +14,10 @@
    <a href="/">
     <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
    </a>
-   {% if not user %}
+   {% if not ouser %}
     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
    {% else %}
-    <span class="pull-right">{{user.nickname}}, your vote is worth {{user.vote}}.  <br /><a href="{{ google_logout_url }}"><button type="button" class="btn btn-primary pull-right">Logout</button></a></span>
+    <span class="pull-right">{{ouser.nickname}}, your vote is worth {{ouser.vote}}.  <a href="{{ google_logout_url }}">Logout</a></span>
    {% endif %}
     <h3>{% block page_header %}Empty Page{% endblock %}</h3>
 

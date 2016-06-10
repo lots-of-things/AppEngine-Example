@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-class User(ndb.Model):
+class OUser(ndb.Model):
   user = ndb.UserProperty(required=True, indexed=False)
   vote = ndb.FloatProperty()
   joined = ndb.DateProperty(auto_now_add=True)
@@ -13,7 +13,7 @@ class User(ndb.Model):
   def key_from_user(cls, user):
     # Construct the key using the user_id that is assured to be constant as our identifier
     # This also serves as a good example of how to tie entities together without requiring a query
-    return ndb.Key('User', user.user_id())
+    return ndb.Key('OUser', user.user_id())
 
   @classmethod
   def create(cls, user):
@@ -21,13 +21,13 @@ class User(ndb.Model):
     return cls(key=key, user=user)
 
   @classmethod
-  def get_or_create_by_user(cls, user):
+  def get_or_create_ouser_by_user(cls, user):
     key = cls.key_from_user(user)
-    existing_user = key.get()
-    if not existing_user:
-      existing_user = cls.create(user)
-      existing_user.put()
-    return existing_user
+    ouser = key.get()
+    if not ouser:
+      ouser = cls.create(user)
+      ouser.put()
+    return ouser
 
   @property
   def nickname(self):

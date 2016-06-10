@@ -7,7 +7,7 @@ from google.appengine.api import memcache
 from google.appengine.api import users
 
 from models.content import Article, Comment
-from auth import user_vars
+from auth import ouser_vars
 
 # This just says to load templates from the same directory this file exists in
 jinja_environment = jinja2.Environment(
@@ -15,12 +15,12 @@ jinja_environment = jinja2.Environment(
 
 class IndexHandler(webapp2.RequestHandler):
 
-  def get(self): 
+  def get(self):
     """Generate the main index page"""
     template_values = {}
 
     # Load any user specific values to pass into the template
-    template_values.update(user_vars())
+    template_values.update(ouser_vars('/'))
 
     # Check memcache for the list of front page articles
     articles_list = memcache.get("articles_list")
@@ -61,12 +61,12 @@ class IndexHandler(webapp2.RequestHandler):
 
 class ChooseHandler(webapp2.RequestHandler):
 
-  def get(self): 
+  def get(self):
     """Generate the choose page"""
     template_values = {}
 
     # Load any user specific values to pass into the template
-    template_values.update(user_vars())
+    template_values.update(ouser_vars('/choose'))
 
     # Check memcache for the list of front page articles
     articles_list = memcache.get("articles_list")

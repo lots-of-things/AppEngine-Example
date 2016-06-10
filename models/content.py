@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-from auth import User
+from auth import OUser
 
 # Our basic user submitted content
 class Article(ndb.Model):
@@ -8,18 +8,18 @@ class Article(ndb.Model):
   url = ndb.TextProperty(required=True)
   why = ndb.TextProperty(required=True)
   submitted = ndb.DateTimeProperty(auto_now_add=True)
-  submitter = ndb.KeyProperty(kind=User)
+  submitter = ndb.KeyProperty(kind=OUser)
   rating = ndb.FloatProperty(default=0.5)
 
 class Comment(ndb.Model):
   article = ndb.KeyProperty(kind=Article)
-  user = ndb.KeyProperty(kind=User)
+  ouser = ndb.KeyProperty(kind=OUser)
   posted = ndb.DateTimeProperty(auto_now_add=True)
   content = ndb.TextProperty(required=True)
 
 class Question(ndb.Model):
   article = ndb.KeyProperty(kind=Article)
-  user = ndb.KeyProperty(kind=User)
+  ouser = ndb.KeyProperty(kind=OUser)
   posted = ndb.DateTimeProperty(auto_now_add=True)
   content = ndb.TextProperty(required=True)
   answer = ndb.BooleanProperty(required=True)
