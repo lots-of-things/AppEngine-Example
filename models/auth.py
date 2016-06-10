@@ -2,7 +2,7 @@ from google.appengine.ext import ndb
 
 class OUser(ndb.Model):
   user = ndb.UserProperty(required=True, indexed=False)
-  vote = ndb.FloatProperty()
+  vote = ndb.FloatProperty(default=0)
   joined = ndb.DateProperty(auto_now_add=True)
   about = ndb.TextProperty()
 

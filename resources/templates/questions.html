@@ -2,17 +2,35 @@
  <div class="panel panel-default" id="comments" style="padding: 1em;">
   {% for question in questions %}
    <div class="well" id="question-{{ question.id }}">
-    <span class="question-info">{{ question.ouser.nickname }} on {{ question.posted }}</span>
-    <p class="question-content">{{ question.content|e }}</p>
+    <p class="question-content">Q: {{ question.content|e }}</p>
 
     <form action="/ans/{{ question.id }}/true" method="get">
-      <button type="submit" value="Submit">True</button>
+      <button type="submit" value="Submit" enabled>True</button>
     </form>
     <form action="/ans/{{ question.id }}/false" method="get">
-      <button type="submit" value="Submit">False</button>
+      <button type="submit" value="Submit" enabled>False</button>
     </form>
+    <p class="question-answer"></p>
 
    </div>
+   <script>
+       $(function() {
+         $("form").on("submit", function(e) {
+               e.preventDefault();
+               $.ajax({
+                   url: $(this).attr("action"),
+                   type: 'POST',
+                   data: $(this).serialize(),
+                   success: function(data) {
+                       $("#question-{{ question.id }}").find('.question-content').css("color", "grey");
+                       $("#question-{{ question.id }} :input").attr("disabled", true);
+                       $("#question-{{ question.id }}").find('.question-answer').html(data);
+                   }
+               });
+           });
+       });
+   </script>
   {% endfor %}
+
  </div>
 {% endif %}

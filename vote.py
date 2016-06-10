@@ -49,17 +49,13 @@ class AddAnswerHandler(webapp2.RequestHandler):
           if question.answer == True:
               question.correct += question.correct + 1
               gotit = True
-          else:
-              question.correct += question.correct - 1
       else:
-          if question.answer == True:
-              question.correct += question.correct - 1
-          else:
+          if question.answer == False:
               question.correct += question.correct + 1
               gotit = True
 
-      return self.redirect('/', body="Thanks for your answer!")
-    return self.redirect('/', body="Must be logged in to write answers.")
+      return self.response.write("answer was "+str(question.answer)+" ("+str(question.correct) +" out of "+str(question.tries) +" correct)")
+    return self.response.write("I screwed up")
 
   def get(self, article_id, vote_type):
     return self.post(article_id, vote_type)
