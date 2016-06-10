@@ -63,3 +63,16 @@ class AddAnswerHandler(webapp2.RequestHandler):
 
   def get(self, article_id, vote_type):
     return self.post(article_id, vote_type)
+
+class PopHandler(webapp2.RequestHandler):
+
+  def get(self):
+      articles = Article.query(Article.mark==0).order(Article.mark).fetch(1)
+      for article in articles:
+          article.mark=1
+          article.put()
+      articles = Article.query(Article.mark<0).order(Article.mark, -Article.rating).fetch(1)
+      for article in articles:
+          article.mark=0
+          article.put()
+      return self.redirect('/', body="Popped.")

@@ -10,6 +10,7 @@ class Article(ndb.Model):
   submitted = ndb.DateTimeProperty(auto_now_add=True)
   submitter = ndb.KeyProperty(kind=OUser)
   rating = ndb.FloatProperty(default=0.5)
+  mark = ndb.IntegerProperty(default=-1)
 
 class Comment(ndb.Model):
   article = ndb.KeyProperty(kind=Article)

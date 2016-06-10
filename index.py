@@ -29,7 +29,7 @@ class IndexHandler(webapp2.RequestHandler):
     if not articles_list:
       logging.info("Front page not found in memcache, requerying")
       article_list = []
-      articles = Article.query().order(-Article.rating, -Article.submitted).fetch(1)
+      articles = Article.query(Article.mark==0).order(Article.mark, -Article.rating, -Article.submitted).fetch(1)
 
       for article in articles:
         article_properties = { 'title': article.title,
@@ -75,7 +75,7 @@ class ChooseHandler(webapp2.RequestHandler):
     if not articles_list:
       logging.info("Front page not found in memcache, requerying")
       article_list = []
-      articles = Article.query().order(-Article.rating, -Article.submitted).fetch(20)
+      articles = Article.query(Article.mark<0).order(Article.mark, -Article.rating, -Article.submitted).fetch(20)
 
       for article in articles:
         article_properties = { 'title': article.title,

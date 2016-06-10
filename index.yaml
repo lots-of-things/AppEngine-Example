@@ -2,6 +2,7 @@ indexes:
 
 - kind: Article
   properties:
+  - name: mark
   - name: rating
     direction: desc
   - name: submitted
@@ -12,3 +13,7 @@ indexes:
     - name: article
     - name: posted
 
+- kind: Question
+  properties:
+    - name: article
+    - name: posted
