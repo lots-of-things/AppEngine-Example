@@ -12,13 +12,20 @@
    {% for article in articles %}
    <tr>
     <td class="text-center">
-     <h2><a href="{{ article.url }}" class="article-link">{{ article.title|e }}</a></h2>
+     <h2><a href="{{ article.url }}" target="_blank" class="article-link">{{ article.title|e }}</a></h2>
      <p class="article-link">{{ article.why|e }}</p>
      <div class="text-center">
+       <a href="{{ article.url }}" target="_blank" class="article-link">read the article</a>
+       <br />
       <a href="/article/{{ article.id }}" class="btn btn-default btn-lg btn-huge" data-toggle="tooltip" data-placement="top" title="Make sure you really understand the article so you can share in the conversation with friends later.">take the quiz</a>
     </div>
     </td>
    </tr>
+   <script>
+   $('a.article-link').click(function(e) {
+        window.location = '/article/{{ article.id }}'
+   });
+   </script>
    {% endfor %}
    </tbody>
   </table>

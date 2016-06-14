@@ -2,20 +2,31 @@
  <div class="panel panel-default" id="comments" style="padding: 1em;">
   {% for question in questions %}
    <div class="well" id="question-{{ question.id }}">
-    <p class="question-content">Q: {{ question.content|e }}</p>
+     {% if question.displayq %}
+     <p class="question-content">Q: {{ question.content|e }}</p>
 
-    <form action="/ans/{{ question.id }}/true" method="get">
+    <form action="/ans/{{ question.id }}/true" method="get" autocomplete="off">
       <button type="submit" value="Submit" enabled>True</button>
     </form>
-    <form action="/ans/{{ question.id }}/false" method="get">
+    <form action="/ans/{{ question.id }}/false" method="get" autocomplete="off">
       <button type="submit" value="Submit" enabled>False</button>
     </form>
     <p class="question-answer"></p>
+    {% else %}
+    <p class="question-content" style="color:grey">Q: {{ question.content|e }}</p>
 
+   <form action="/ans/{{ question.id }}/true" method="get" autocomplete="off">
+     <button type="submit" value="Submit" disabled>True</button>
+   </form>
+   <form action="/ans/{{ question.id }}/false" method="get" autocomplete="off">
+     <button type="submit" value="Submit" disabled>False</button>
+   </form>
+   <p class="question-answer">question already answered</p>
+    {% endif %}
    </div>
    <script>
        $(function() {
-         $("form").on("submit", function(e) {
+         $("#question-{{ question.id }} form").on("submit", function(e) {
                e.preventDefault();
                $.ajax({
                    url: $(this).attr("action"),

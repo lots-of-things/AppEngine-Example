@@ -7,6 +7,7 @@ from google.appengine.api import memcache
 from google.appengine.api import users
 
 from models.content import Article, Comment, Question
+from models.vote import Answer
 from models.auth import OUser
 
 from auth import ouser_vars
@@ -41,10 +42,10 @@ class AddCommentHandler(webapp2.RequestHandler):
     article = Article.get_by_id(article_id)
     comment_content = self.request.POST['comment']
     if not comment_content or comment_content.strip() == '':
-      return self.redirect('/article/%d' % article_id, body="Empty comment submitted")
+      return self.response.write("empty comments are dumb" )
     comment = Comment(ouser=ouser.key, article=article.key, content=comment_content)
     comment.put()
-    return self.redirect('/article/%d' % article_id, body="Thank you for your comment")
+    return self.response.write("cool story" )
 
 class AddQuestionHandler(webapp2.RequestHandler):
   def post(self, article_id):
@@ -55,10 +56,10 @@ class AddQuestionHandler(webapp2.RequestHandler):
     question_content = self.request.POST['question']
     ans = self.request.POST['answer']=='true'
     if not question_content or question_content.strip() == '':
-      return self.redirect('/article/%d' % article_id, body="You're question needs words.")
+      return self.response.write("your question needs words" )
     question = Question(ouser=ouser.key, article=article.key, content=question_content, answer=ans, tries=0, correct=0)
     question.put()
-    return self.redirect('/article/%d' % article_id, body="Thank you for your question")
+    return self.response.write("<p>Thanks for the question</p><a href=/article/"+ str(article_id)+">Back to article</a>" )
 
 class ViewArticleHandler(webapp2.RequestHandler):
 
@@ -99,17 +100,24 @@ class ViewArticleHandler(webapp2.RequestHandler):
     #   comment_list.append(comment_values)
 
     # Add in any questions that might exist
-    question_list = []
-    for comment in Question.query(Question.article == article.key).order(Question.rating):
-      comment_values = {}
-      comment_values['id'] = comment.key.id()
-      # Another fine example of an anti-pattern
-      comment_values['ouser'] = comment.ouser.get()
-      comment_values['posted'] = comment.posted.strftime("%A, %d. %B %Y %I:%M%p")
-      comment_values['content'] = comment.content
-      comment_values['answer'] = comment.answer
-      question_list.append(comment_values)
+    google_user = users.get_current_user()
+    if google_user:
+        ouser = OUser.get_or_create_ouser_by_user(google_user)
+        question_list = []
+        for que in Question.query(Question.article == article.key).order(Question.rating):
+          que_values = {}
+          que_values['id'] = que.key.id()
+          # Another fine example of an anti-pattern
+          que_values['ouser'] = que.ouser.get()
+          que_values['posted'] = que.posted.strftime("%A, %d. %B %Y %I:%M%p")
+          que_values['content'] = que.content
+          que_values['answer'] = que.answer
+          que_values['displayq'] = (Answer.find(question_key=que.key, ouser_key=ouser.key) == None)
+          question_list.append(que_values)
+        template_values['questions'] = question_list
+    else:
+        ouser = None
 
-    template_values['questions'] = question_list
+
     template = jinja_environment.get_template('article.html')
     self.response.out.write(template.render(template_values))

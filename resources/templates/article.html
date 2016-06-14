@@ -9,18 +9,22 @@
   <span class="article-rating">Rating: {{ rating }}</span>
   <h4>Why is this article worth reading?</h4>
   <p class="article-content">{{ why|e }}</p>
-  <a href="{{ url }}" class="article-link">View the article</a>
+  <a href="{{ url }}" target="_blank" class="article-link">View the article</a>
  </div>
- {% if questions %}
-  {% include "questions.html" %}
- {% endif %}
  {% if ouser %}
-  {% include "add_question.html" %}
- {% endif %}
- {% if ouser %}
-  {% include "add_comment.html" %}
- {% endif %}
- {% if comments %}
-  {% include "comments.html" %}
- {% endif %}
+   {% if questions %}
+    {% include "questions.html" %}
+   {% endif %}
+   {% if ouser %}
+    {% include "add_question.html" %}
+   {% endif %}
+   {% if ouser %}
+    {% include "add_comment.html" %}
+   {% endif %}
+   {% if comments %}
+    {% include "comments.html" %}
+   {% endif %}
+  {% else %}
+  <h5>Must be logged in to view comments and questions.</h5>
+  {% endif %}
 {% endblock %}

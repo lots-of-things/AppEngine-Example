@@ -9,5 +9,17 @@
     </div>
     <input type="submit" value="Add this Question" class="btn btn-default" />
    </form>
+   <script>
+       $(function() {
+         $("#add-question").on("submit", function(e) {
+               e.preventDefault();
+               $.ajax({
+                   url: $(this).attr("action"),
+                   type: 'POST',
+                   data: $(this).serialize()
+               });
+           });
+       });
+   </script>
   </div>
  </div>
