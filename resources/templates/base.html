@@ -12,15 +12,20 @@
 </head>
  <body>
   <div class="container" id="main-content">
-   <h1>oneth</h1>
-   <a href="/">
+    {% if not ouser %}
+     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
+    {% else %}
+     <span class="pull-right">{{ouser.nickname}} (<a href="{{ google_logout_url }}">Logout</a>), your vote is worth {{ouser.vote}} </span>
+    {% endif %}
+    <br/><br/>
+      <a href="/info"><button type="button" class="btn btn-primary pull-right">Help</button></a>
+      <a href="/choose"><button type="button" class="btn btn-primary pull-right">Choose Articles</button></a>
+      <a href="/"><button type="button" class="btn btn-primary pull-right">Main Article</button></a>
+    <h1>oneth</h1>
+   <a href="/choose">
     <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
    </a>
-   {% if not ouser %}
-    <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
-   {% else %}
-    <span class="pull-right">{{ouser.nickname}}, your vote is worth {{ouser.vote}}  <a href="{{ google_logout_url }}">Logout</a></span>
-   {% endif %}
+
     <h3>{% block page_header %}Empty Page{% endblock %}</h3>
 
    {% block content %}

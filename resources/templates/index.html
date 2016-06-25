@@ -21,14 +21,20 @@
     </div>
     </td>
    </tr>
+
    <script>
    $('a.article-link').click(function(e) {
         window.location = '/article/{{ article.id }}'
    });
    </script>
    {% endfor %}
+
    </tbody>
+
   </table>
+  <div class="text-center">
+    <h5><a href="/choose" target="_blank" class="article-link">work on the next oneth</a></h6>
+  </div>
  </div>
 
 {% endblock %}

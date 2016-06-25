@@ -15,15 +15,19 @@ class AddVoteHandler(webapp2.RequestHandler):
 
     google_user = users.get_current_user()
     if google_user:
-      ouser_key = OUser.key_from_user(google_user)
-    if ouser_key:
-      vote = Vote.create(article_key=article.key, ouser_key=ouser_key, value=DOWNVOTE)
-      article.rating = article.rating + ouser.vote
+      ouser = OUser.get_or_create_ouser_by_user(google_user)
+      if(ouser):
+        ouser_key = OUser.key_from_user(google_user)
+        if ouser_key:
+          vote = Vote.create(article_key=article.key, ouser_key=ouser_key, value=DOWNVOTE)
+          article.rating = article.rating + ouser.vote
+          ouser.vote=0
 
 
-      ndb.put_multi([article, vote])
 
-      return self.redirect('/', body="Thanks for your vote!")
+      ndb.put_multi([article, vote, ouser])
+
+      return self.redirect('/', body="Thanks for your vote! <a href='/choose'>Back to main</a> (later show voting statistics here)")
     return self.redirect('/', body="Must be logged in to vote.")
 
   def get(self, article_id, vote_type):

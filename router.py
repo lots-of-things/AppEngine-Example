@@ -1,6 +1,6 @@
 import webapp2
 
-from index import IndexHandler, ChooseHandler
+from index import IndexHandler, ChooseHandler, InfoHandler
 from auth import LoginHandler
 from article import AddArticleHandler, ViewArticleHandler, AddCommentHandler, AddQuestionHandler
 from vote import AddVoteHandler, AddAnswerHandler, PopHandler
@@ -8,6 +8,7 @@ from vote import AddVoteHandler, AddAnswerHandler, PopHandler
 # Here we can set up more advanced routing rules
 APP = webapp2.WSGIApplication([
     (r'/', IndexHandler),
+    (r'/info', InfoHandler),
     (r'/choose', ChooseHandler),
     (r'/login', LoginHandler),
     (r'/submit', AddArticleHandler),

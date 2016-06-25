@@ -101,3 +101,17 @@ class ChooseHandler(webapp2.RequestHandler):
     # If users aren't logged in, I could cache and return the entire rendered front page
     template = jinja_environment.get_template('choose.html')
     self.response.out.write(template.render(template_values))
+
+class InfoHandler(webapp2.RequestHandler):
+
+      def get(self):
+        """Generate the choose page"""
+        template_values = {}
+
+        # Load any user specific values to pass into the template
+        template_values.update(ouser_vars('/choose'))
+
+
+        # If users aren't logged in, I could cache and return the entire rendered front page
+        template = jinja_environment.get_template('info.html')
+        self.response.out.write(template.render(template_values))

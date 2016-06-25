@@ -16,8 +16,12 @@
                $.ajax({
                    url: $(this).attr("action"),
                    type: 'POST',
-                   data: $(this).serialize()
+                   data: $(this).serialize(),
+                   success: function(data) {
+                       location.reload();
+                   }
                });
+
            });
        });
    </script>

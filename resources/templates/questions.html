@@ -1,7 +1,17 @@
 {% if questions %}
- <div class="panel panel-default" id="comments" style="padding: 1em;">
+  <div id="add-article-container" class="panel panel-default panel-group">
+    <div class="panel-heading">
+   <a data-toggle="collapse" data-parent="#add-article-container" href="#comments" style="display: block; height: 100%;">
+    <h3 class="panel-title">
+     View Questions
+     <span class="caret"></span>
+    </h3>
+   </a>
+  </div>
+  <div class="panel-collapse panel-body collapse" id="comments" style="padding: 1em;">
   {% for question in questions %}
    <div class="well" id="question-{{ question.id }}">
+     <a class="pull-right">flag this question for removal</a>
      {% if question.displayq %}
      <p class="question-content">Q: {{ question.content|e }}</p>
 
@@ -14,7 +24,6 @@
     <p class="question-answer"></p>
     {% else %}
     <p class="question-content" style="color:grey">Q: {{ question.content|e }}</p>
-
    <form action="/ans/{{ question.id }}/true" method="get" autocomplete="off">
      <button type="submit" value="Submit" disabled>True</button>
    </form>
@@ -42,6 +51,6 @@
        });
    </script>
   {% endfor %}
-
+</div>
  </div>
 {% endif %}
