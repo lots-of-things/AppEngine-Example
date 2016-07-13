@@ -1,0 +1,4 @@
+cron:
+- description: moves the next article to the front page
+  url: /pop
+  schedule: every saturday 00:00
