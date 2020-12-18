@@ -11,7 +11,7 @@
   <div class="panel-collapse panel-body collapse" id="comments" style="padding: 1em;">
   {% for question in questions %}
    <div class="well" id="question-{{ question.id }}">
-     <a class="pull-right">flag this question for removal</a>
+     <a class="float-right">flag this question for removal</a>
      {% if question.displayq %}
      <p class="question-content">Q: {{ question.content|e }}</p>
 

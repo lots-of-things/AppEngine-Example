@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/resources/static/theme.css" />
   <link href="/resources/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/resources/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+  <!-- <link href="/resources/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"> -->
   <link rel="apple-touch-icon-precomposed" href="/resources/static/apple-touch-icon-precomposed.png">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="/resources/static/bootstrap/js/bootstrap.min.js"></script>
@@ -13,14 +13,14 @@
  <body>
   <div class="container" id="main-content">
     {% if not ouser %}
-     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary pull-right">Login</button></a>
+     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary float-right">Login</button></a>
     {% else %}
-     <span class="pull-right">{{ouser.nickname}} (<a href="{{ google_logout_url }}">Logout</a>), your vote is worth {{ouser.vote}} </span>
+     <span class="float-right">{{ouser.nickname}} (<a href="{{ google_logout_url }}">Logout</a>), your vote is worth {{ouser.vote}} </span>
     {% endif %}
     <br/><br/>
-      <a href="/info"><button type="button" class="btn btn-primary pull-right">Help</button></a>
-      <a href="/choose"><button type="button" class="btn btn-primary pull-right">Choose Articles</button></a>
-      <a href="/"><button type="button" class="btn btn-primary pull-right">Main Article</button></a>
+      <a href="/info"><button type="button" class="btn btn-primary float-right">Help</button></a>
+      <a href="/choose"><button type="button" class="btn btn-primary float-right">Choose Articles</button></a>
+      <a href="/"><button type="button" class="btn btn-primary float-right">Main Article</button></a>
     <h1>oneth</h1>
    <a href="/choose">
     <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
