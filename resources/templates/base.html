@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <title>{% block title %}oneth.makeloft.org{% endblock %}</title>
+  <title>{% block title %}oneth{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/resources/static/theme.css" />
   <link href="/resources/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -12,21 +12,40 @@
 </head>
  <body>
   <div class="container" id="main-content">
-    {% if not ouser %}
-     <a href="{{ google_login_url }}"><button type="button" class="btn btn-primary float-right">Login</button></a>
-    {% else %}
-     <span class="float-right">{{ouser.nickname}} (<a href="{{ google_logout_url }}">Logout</a>), your vote is worth {{ouser.vote}} </span>
-    {% endif %}
-    <br/><br/>
-      <a href="/info"><button type="button" class="btn btn-primary float-right">Help</button></a>
-      <a href="/choose"><button type="button" class="btn btn-primary float-right">Choose Articles</button></a>
-      <a href="/"><button type="button" class="btn btn-primary float-right">Main Article</button></a>
-    <h1>oneth</h1>
-   <a href="/choose">
-    <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
-   </a>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a href="/">
+        <img src="/logo.png" alt="1" id="logo" height="70" width="80" />
+      </a>
+      <div class="wrap">
+        <h1>oneth</h1>
+        <h3>{% block page_header %}Empty Page{% endblock %}</h3>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
 
-    <h3>{% block page_header %}Empty Page{% endblock %}</h3>
+
+
+          <li class="nav-item"><a class="nav-link" href="/"><button type="button" class="btn">Main Article</button></a></li>
+          <li class="nav-item"><a class="nav-link" href="/choose"><button type="button" class="btn">Choose Articles</button></a></li>
+          <li class="nav-item"><a class="nav-link" href="/info"><button type="button" class="btn">Help</button></a></li>
+
+          {% if not ouser %}
+           <li class="nav-item">
+            <a href="{{ google_login_url }}" class="nav-link"><button type="button" class="btn btn-primary">Login</button></a>
+           </li>
+          {% endif %}
+        </ul>
+      </div>
+
+    </nav>
+    {% if ouser %}
+         <span class='float-right'>{{ouser.nickname}} [{{ouser.vote}}] <a href="{{ google_logout_url }}">Logout</a></span>
+    {% endif %}
+
 
    {% block content %}
     There is no content on this page! Whoops!
