@@ -24,7 +24,7 @@ td a.article-link {
 a.vote:hover, a.vote:visited:hover {
   text-decoration: none;
   color: blue;
-
+  background-position: left bottom;
 }
 
 a.vote, a.vote:visited {
@@ -37,6 +37,10 @@ a.vote {
  float: left;
  clear: both;
  font-size: 2em;
+ background: linear-gradient(to right, blue 50%, white 50%);
+ background-size: 200% 100%;
+ background-position: right bottom;
+ transition: all .5s ease-out;
 }
 
 #logo {

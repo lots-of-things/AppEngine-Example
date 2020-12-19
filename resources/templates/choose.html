@@ -17,9 +17,9 @@
      {% if ouser %}
      <td class="votes">
        {% if ouser.vote>0 %}
-        <a href="/vote/{{ article.id }}/up" onclick="return confirm('Are you sure you want to cast your {{ ouser.vote}} points toward this article?')" class="glyphicon glyphicon-unchecked vote">&nbsp;</a>
+        <a href="/vote/{{ article.id }}/up" onclick="return confirm('Are you sure you want to cast your {{ ouser.vote}} points toward this article?')" class="far fa-square vote"></a>
        {% else %}
-        <a href="#" class="glyphicon glyphicon-unchecked vote" onclick="return alert('You need points to vote.  Click help to learn how to get points.')" title="you need points to vote">&nbsp;</a>
+        <a href="#" class="far fa-square vote" onclick="return alert('You have no points to vote with.')" title="you need points to vote"></a>
        {% endif %}
      </td>
      {% endif %}
